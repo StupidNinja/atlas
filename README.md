@@ -1,6 +1,14 @@
 # Atlas
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.4.
+This is a simple to-do list application built with Angular. It includes login/register, and tasks page.
+
+## Project members
+
+ - Almasbekov Damir
+
+ - Zhamshid Kabanbay
+
+ - Temirkhan Adilet
 
 ## Development server
 
