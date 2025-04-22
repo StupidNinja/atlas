@@ -1,0 +1,100 @@
+.container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+}
+
+
+.login-form {
+  height: 350px;
+  width: 350px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  padding: 40px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  margin-left: 200px;
+  margin-top: 150px;
+}
+
+
+
+h2 {
+  font-family: 'League Spartan', sans-serif;
+  margin-bottom: 100px;
+  font-size: 50px;
+  font-weight: bold;
+  text-align: center;
+  color: rgb(12, 42, 140);
+}
+
+label {
+  font-size: 14px;
+}
+
+.input-box {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  padding: 5px 0;
+}
+
+.input-box input {
+  border: none;
+  outline: none;
+  flex: 1;
+  padding: 10px;
+  font-size: 14px;
+}
+
+.login-btn {
+  padding: 10px;
+  background-color: rgb(53, 122, 189);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  box-shadow: 0 5px 15px rgba(0, 60, 255, 0.3);
+  cursor: pointer;
+  transition: 0.3s;
+  display: block;
+  margin: 25px auto 0 auto;
+  height: 40px;
+  width: 100px;
+}
+.register-btn {
+  color: rgb(53, 122, 189);  
+  background-color: white;
+  border: none;
+  display: block;
+  margin: 25px auto 0 auto;
+}
+.register-btn:hover {
+  text-decoration: underline;
+}
+
+.login-btn:hover {
+  background-color: rgb(41, 86, 130);
+}
+
+.photo-section {
+  flex: 1;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+  margin-top: 200px;
+}
+
+.photo-image {
+  width: 400px;
+  height: auto; 
+}
+
+.error {
+  color: red;
+  text-align: center;
+}

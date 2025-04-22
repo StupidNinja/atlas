@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="login-form">
+    <form (submit)="login()">
+      <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;500;700&display=swap" rel="stylesheet">
+      <h2>To Do List</h2>
+
+      <div *ngIf="error" class="error">{{ error }}</div>
+      <div class="input-box">
+        <span class="icon">✉️</span>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          [(ngModel)]="username"
+          required
+          placeholder="Enter your username"
+        />
+      </div>
+
+      <div class="input-box">
+        <span class="icon">🔒</span>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          [(ngModel)]="password"
+          required
+          placeholder="Enter your password"
+        />
+      </div>
+
+      <button type="submit" class="login-btn">Log in</button>
+      <button type="submit" routerLink="/register" class="register-btn">Sign in</button>
+    </form>
+  </div>
+
+  <div class="photo-section">
+    <img src="https://media.istockphoto.com/id/1249855237/vector/checklist-blue-icon-to-do-list-task-complete.jpg?s=612x612&w=0&k=20&c=vmhRDXEvjAAc6mjI5mkRUfMef7BGkjI42_xw1UAO5kg=" alt="todolist" class="photo-image">
+  </div>
+</div>
