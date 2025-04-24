@@ -97,8 +97,8 @@ export class TaskListComponent implements OnInit {
   }
 
   get progress(): number {
-    const total = this.tasks.length;
-    const completed = this.tasks.filter(t => t.completed).length;
+    const total = this.filteredTasks.length;
+    const completed = this.filteredTasks.filter(t => t.status?.name === 'Completed').length;
     return total > 0 ? Math.round((completed / total) * 100) : 0;
   }
 }
