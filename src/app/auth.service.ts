@@ -13,7 +13,8 @@ export class AuthService {
   constructor(private api: ApiService, private router: Router) {
     const token = this.getAccessToken();
     if (token) {
-      this.currentUserSubject.next('user'); 
+      const payload = this.decodeToken(token);
+      this.currentUserSubject.next(payload?.username || 'user');
     }
   }
 
@@ -21,8 +22,10 @@ export class AuthService {
     return new Observable<void>((observer) => {
       this.api.login({ username, password }).subscribe({
         next: (res) => {
-          this.setTokens(res.access, res.refresh); 
-          this.router.navigate(['/home']); 
+          this.setTokens(res.access, res.refresh);
+          const payload = this.decodeToken(res.access);
+          this.currentUserSubject.next(payload?.username || 'user');
+          this.router.navigate(['/home']);
           observer.next();
           observer.complete();
         },
@@ -38,7 +41,7 @@ export class AuthService {
     }
     this.clearTokens();
     this.currentUserSubject.next(null);
-    this.router.navigate(['/login']); 
+    this.router.navigate(['/login']);
   }
 
   getAccessToken(): string | null {
@@ -57,5 +60,27 @@ export class AuthService {
   private clearTokens(): void {
     localStorage.removeItem(this.accessTokenKey);
     localStorage.removeItem(this.refreshTokenKey);
+  }
+
+  private decodeToken(token: string): any {
+    try {
+      return JSON.parse(atob(token.split('.')[1]));
+    } catch {
+      return null;
+    }
+  }
+
+  isAdmin(): boolean {
+    const token = this.getAccessToken();
+    if (!token) return false;
+    const payload = this.decodeToken(token);
+    return payload?.is_staff || payload?.role === 'admin';
+  }
+
+  getCurrentUser(): string | null {
+    const token = this.getAccessToken();
+    if (!token) return null;
+    const payload = this.decodeToken(token);
+    return payload?.username || null;
   }
 }
