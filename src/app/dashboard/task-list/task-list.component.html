@@ -1,0 +1,75 @@
+<div class="task-list">
+  <h2>Task List</h2>
+
+  <div class="top-actions">
+    <button [routerLink]="['/dashboard/create']">
+      <i class="material-icons">add</i>
+      Create Task
+    </button>
+  </div>
+
+  <div class="progress">
+    <p>Progress: {{ progress }}%</p>
+    <progress [value]="progress" max="100"></progress>
+  </div>
+
+  <div class="filters-box">
+    <div class="filter-section">
+      <h3>Statuses</h3>
+      <label *ngFor="let s of statusOptions">
+        <input
+          type="checkbox"
+          [checked]="selectedStatuses.includes(s.name)"
+          (change)="toggleStatusFilter(s.name)" />
+        {{ s.name }}
+      </label>
+    </div>
+
+    <div class="filter-section">
+      <h3>Categories</h3>
+      <label *ngFor="let c of categoryOptions">
+        <input
+          type="checkbox"
+          [checked]="selectedCategories.includes(c.name)"
+          (change)="toggleCategoryFilter(c.name)" />
+        {{ c.name }}
+      </label>
+    </div>
+  </div>
+
+  <div *ngFor="let task of filteredTasks" class="task-card">
+    <div class="task-header">
+      <h3>{{ task.title }}</h3>
+      <div class="task-actions">
+        <button [routerLink]="['/dashboard/edit', task.id]">
+          <i class="material-icons">edit</i>
+        </button>
+        <button (click)="deleteTask(task.id)">
+          <i class="material-icons">delete</i>
+        </button>
+      </div>
+    </div>
+
+    <p>{{ task.description }}</p>
+
+    <div class="task-meta">
+      <span class="status">
+        <i class="material-icons">
+          {{
+            task.status?.name === 'Completed' ? 'check_circle' :
+              task.status?.name === 'In Progress' ? 'hourglass_empty' :
+                'radio_button_unchecked'
+          }}
+        </i>
+        {{ task.status?.name }}
+      </span>
+
+      <span class="category">
+        <i class="material-icons">label</i>
+        {{ task.category?.name || 'Uncategorized' }}
+      </span>
+    </div>
+
+    <small class="created">Created: {{ task.created_at | date:'short' }}</small>
+  </div>
+</div>

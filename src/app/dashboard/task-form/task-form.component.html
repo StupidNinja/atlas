@@ -1,0 +1,29 @@
+<div class="task-form-wrapper">
+  <h2>{{ isEditMode ? 'Edit Task' : 'Create Task' }}</h2>
+
+  <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+
+    <label for="title">Title:</label>
+    <input id="title" type="text" formControlName="title" />
+
+    <label for="description">Description:</label>
+    <textarea id="description" formControlName="description"></textarea>
+
+    <label for="status">Status:</label>
+    <select id="status" formControlName="status" *ngIf="statuses.length">
+      <option *ngFor="let s of statuses" [value]="s.id">{{ s.name }}</option>
+    </select>
+
+    <label for="category">Category:</label>
+    <select id="category" formControlName="category" *ngIf="categories.length">
+      <option value="" disabled>-- Select Category --</option>
+      <option *ngFor="let c of categories" [value]="c.id">{{ c.name }}</option>
+    </select>
+
+    <button type="submit" [disabled]="taskForm.invalid">
+      <i class="material-icons">check</i>
+      {{ isEditMode ? 'Save Changes' : 'Create Task' }}
+    </button>
+
+  </form>
+</div>
