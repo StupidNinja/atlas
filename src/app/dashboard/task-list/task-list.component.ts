@@ -18,6 +18,7 @@ import { StatusService } from '../../status.service';
 })
 export class TaskListComponent implements OnInit {
   tasks: Task[] = [];
+  allTasks: Task[] = [];
   filter: 'all' | 'completed' | 'pending' = 'all';
   statusOptions: any[] = [];
   categoryOptions: any[] = [];
@@ -30,7 +31,8 @@ export class TaskListComponent implements OnInit {
     private authService: AuthService,
     private categoryService: CategoryService,
     private statusService: StatusService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.loadTasks();
@@ -47,7 +49,10 @@ export class TaskListComponent implements OnInit {
 
   loadTasks(): void {
     this.taskService.getTasks().subscribe({
-      next: (data) => this.tasks = data,
+      next: (data) => {
+        this.allTasks = data;
+        this.tasks = data; // по умолчанию
+      },
       error: (err) => console.error('Error loading tasks', err)
     });
   }
@@ -60,12 +65,12 @@ export class TaskListComponent implements OnInit {
     if (confirm('Are you sure you want to delete this task?')) {
       this.taskService.deleteTask(id).subscribe({
         next: () => {
-          this.snackBar.open('Task deleted successfully!', 'Close', { duration: 3000 });
+          this.snackBar.open('Task deleted successfully!', 'Close', {duration: 3000});
           this.loadTasks();
         },
         error: (err) => {
           console.error('Error deleting task', err);
-          this.snackBar.open('Failed to delete task', 'Close', { duration: 3000 });
+          this.snackBar.open('Failed to delete task', 'Close', {duration: 3000});
         }
       });
     }
@@ -97,8 +102,9 @@ export class TaskListComponent implements OnInit {
   }
 
   get progress(): number {
-    const total = this.filteredTasks.length;
-    const completed = this.filteredTasks.filter(t => t.status?.name === 'Completed').length;
+    const total = this.allTasks.length;
+    const completed = this.allTasks.filter(t => t.status?.name === 'Completed').length;
     return total > 0 ? Math.round((completed / total) * 100) : 0;
   }
+
 }
