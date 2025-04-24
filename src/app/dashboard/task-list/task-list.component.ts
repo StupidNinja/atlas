@@ -8,6 +8,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AuthService } from '../../auth.service';
 import { CategoryService } from '../../category.service';
 import { StatusService } from '../../status.service';
+import { TaskStatus } from '../task.model';
 
 @Component({
   standalone: true,
@@ -106,5 +107,32 @@ export class TaskListComponent implements OnInit {
     const completed = this.allTasks.filter(t => t.status?.name === 'Completed').length;
     return total > 0 ? Math.round((completed / total) * 100) : 0;
   }
-
+  
+  changeTaskStatus(task: Task): void {
+    const currentStatus = task.status;
+    const statuses: TaskStatus[] = this.statusOptions; 
+  
+    const currentIndex = statuses.findIndex(status => status.name === currentStatus?.name);
+    const nextStatus = statuses[(currentIndex + 1) % statuses.length]; 
+  
+    task.status = nextStatus; 
+  
+    this.updateTaskStatus(task);
+  }
+  
+  updateTaskStatus(task: Task): void {
+    const updatedTaskData = {
+      ...task,
+      status_id: task.status.id
+    };
+  
+    this.taskService.updateTask(task.id, updatedTaskData).subscribe({
+      next: () => {
+        this.snackBar.open(`Task status updated to ${task.status?.name}!`, 'Close', { duration: 3000 });
+        this.loadTasks(); 
+      },
+    });
+  }
+  
+  
 }

@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { CategoryService } from '../../category.service';
 import { StatusService } from '../../status.service';
-
+import { Location } from '@angular/common';
 @Component({
   standalone: true,
   selector: 'app-task-form',
@@ -30,9 +30,15 @@ export class TaskFormComponent implements OnInit {
     private router: Router,
     private snackBar: MatSnackBar,
     private categoryService: CategoryService,
-    private statusService: StatusService
-  ) {}
+    private statusService: StatusService,
+    private location: Location
 
+  ) {}
+  
+  goBack(): void {
+    this.location.back();
+  }
+  
   ngOnInit(): void {
     this.categoryService.getCategories().subscribe(data => {
       this.categories = data;

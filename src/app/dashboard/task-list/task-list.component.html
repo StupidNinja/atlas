@@ -1,4 +1,5 @@
 <div class="task-list">
+  <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;500;700&display=swap" rel="stylesheet">
   <h2>Task List</h2>
 
   <div class="top-actions">
@@ -53,14 +54,20 @@
     <p>{{ task.description }}</p>
 
     <div class="task-meta">
-      <span class="status">
+      <span class="status" [ngClass]="{
+        'completed': task.status?.name === 'Completed',
+        'in-progress': task.status?.name === 'In Progress',
+        'pending': task.status?.name === 'Pending'
+      }">
+        <button class="status-button" (click)="changeTaskStatus(task)">
         <i class="material-icons">
           {{
             task.status?.name === 'Completed' ? 'check_circle' :
-              task.status?.name === 'In Progress' ? 'hourglass_empty' :
-                'radio_button_unchecked'
+            task.status?.name === 'In Progress' ? 'hourglass_empty' :
+            'radio_button_unchecked'
           }}
         </i>
+      </button>
         {{ task.status?.name }}
       </span>
 

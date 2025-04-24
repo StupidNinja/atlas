@@ -1,4 +1,5 @@
 .task-form-wrapper {
+  position: relative;
   max-width: 600px;
   margin: 40px auto;
   background: white;
@@ -40,4 +41,28 @@ form button {
   align-items: center;
   gap: 8px;
   cursor: pointer;
+}
+form button:hover {
+  background-color: #1864b0;
+}
+
+button.exit {
+  background-color: #dd300e;
+  margin-top: 20px;
+  padding: 12px 20px;
+  color: white;
+  font-size: 13px;
+  border: none;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+}
+
+button.exit:hover {
+  background-color: #cd2424;
 }

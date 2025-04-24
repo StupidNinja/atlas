@@ -1,6 +1,6 @@
 <div class="task-form-wrapper">
-  <h2>{{ isEditMode ? 'Edit Task' : 'Create Task' }}</h2>
-
+  <button type="button" (click)="goBack()" class="exit">Exit</button>
+  <h2>{{ isEditMode ? 'Edit Task' : 'Create Task' }}</h2> 
   <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
 
     <label for="title">Title:</label>
@@ -24,6 +24,5 @@
       <i class="material-icons">check</i>
       {{ isEditMode ? 'Save Changes' : 'Create Task' }}
     </button>
-
   </form>
 </div>
